@@ -1,0 +1,39 @@
+#include <SPI.h>
+#include <MFRC522.h>
+
+//PIN for RFID
+#define SS_PIN 10
+#define RST_PIN 9
+//PIN for LED
+#define LED_PIN 8
+
+MFRC522 rfid(SS_PIN, RST_PIN); 
+
+void setup() {
+  Serial.begin(9600);
+  SPI.begin(); 
+  rfid.PCD_Init();
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  //checks the presence of a new card... if none is present then loop returns to the start
+  if ( ! rfid.PICC_IsNewCardPresent())
+    return;
+  //this reads serial number... if it cannot be read, the function returns to start
+  if ( ! rfid.PICC_ReadCardSerial())
+    return;
+  //this loop reads the tag uid one byte at a time and does not stop until full length of uid is read
+  for (byte i = 0; i < rfid.uid.size; i++) {
+    Serial.print(rfid.uid.uidByte[i] < 0x10 ? " 0" : " ");
+    Serial.print(rfid.uid.uidByte[i], HEX);
+  }
+  //one reading per line
+  Serial.println();
+  //if tag is read, LED lights up
+  digitalWrite(LED_PIN, HIGH);
+  delay(500);
+  //after a certain duration, LED stops lighting up
+  digitalWrite(LED_PIN, LOW);
+  delay(500);
+}
