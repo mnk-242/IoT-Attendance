@@ -1,0 +1,52 @@
+import serial
+import gspread
+import pandas as pd
+from oauth2client.service_account import ServiceAccountCredentials
+from gspread_dataframe import set_with_dataframe
+from openpyxl import Workbook, load_workbook
+from datetime import datetime
+
+#opens up serial communication with the 9600 baud rate
+ser = serial.Serial('COM4', 9600)
+#df reads an excel file into the dataframe
+df= pd.read_excel('rfidfinalproject.xlsx')
+lookup_wb = load_workbook('attendee.xlsx')
+lookup_ws = lookup_wb.active
+wb = Workbook()
+ws = wb.active
+
+# Creates an attendee dictionary from attendee excel file
+attendee = {str(row[0]): row[1] for row in lookup_ws.iter_rows(min_row=2, values_only=True)}
+
+#Headings for the workbook
+ws.append(["Name","RFID Data","Date","Time"])
+
+#Credentials for google API
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('...json key file here...', scope)
+client = gspread.authorize(creds)
+
+# While condition is true, the data will be collected and added to the excel sheet and uploaded to cloud
+while True:
+    if ser.in_waiting > 0:
+        rdata = ser.readline().decode('utf-8').rstrip()
+
+        # Retrieve current date and time
+        c_datetime = datetime.now()  
+        c_date = c_datetime.strftime("%Y-%m-%d")
+        c_time = c_datetime.strftime("%H:%M:%S")
+
+        #Retrieves the name of the Attendee corresponding to the tag
+        name = attendee.get(rdata, "Unknown")
+        
+        #prints name of attendee
+        print (name)
+
+        #appends data to the workbook
+        ws.append([name, rdata, c_date, c_time])
+        wb.save('rfidfinalproject.xlsx')  # Saves the workbook
+        
+        #opens workbook on cloud and uploads data
+        sheet = client.open('Project').sheet1
+        sheet.clear()
+        set_with_dataframe(sheet, df)
