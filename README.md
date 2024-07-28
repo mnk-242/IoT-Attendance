@@ -1,9 +1,11 @@
 # IoT-Attendance
 IoT and RFID based Attendance System.
 
+
 **Aim** 
 The aim for this project was to record attendance, store it on the workstation as well as transfer the data to the cloud (google sheet) for remote access.
 The project was also supposed to record attendance with the name of the attendee, the tag ID, the date and time, which it successfully did.
+....
 
 
 **Hardware Used**
@@ -14,6 +16,7 @@ USB-B cable (for Arduino UNO)
 RFID tags (4)
 Breadboard 
 LED (2)
+....
 
 **Software Used**
 Arduino IDE
@@ -21,6 +24,8 @@ Visual Studio Code
 Excel Sheet
 Google Cloud/Drive
 Google Sheets
+....
+
 
 **Issues I ran into during this Project** 
 
