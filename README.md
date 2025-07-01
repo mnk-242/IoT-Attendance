@@ -5,7 +5,7 @@ This repository consists of the Arduino code that was embedded into the microcon
 
 **Aim** 
 The aim for this project was to record attendance, store it on the workstation as well as transfer the data to the cloud (google sheet) for remote access.
-The project was also supposed to record attendance with the name of the attendee, the tag ID, the date and time, which it successfully did.
+The project was also supposed to record attendance with the name of the attendee, the tag ID, the date and time, which it successfully did. It can store over a 100+ logs of attendance to the cloud.
 
 ...
 **Hardware Used**
