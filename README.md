@@ -1,14 +1,14 @@
 # IoT-Attendance
 IoT and RFID based Attendance System.
 
-This repository consists of the Arduino code that was embedded into the microcontroller as well as the python script that was run on my workstation to recieve, store and transmit data to Google Drive.
+This repository consists of the Arduino code that was embedded into the microcontroller as well as the python script that was run on my workstation to recieve, store and transmit data to Google Drive. The overall project consists of a full report and research.
 
-**Aim** 
+# Aim 
 The aim for this project was to record attendance, store it on the workstation as well as transfer the data to the cloud (google sheet) for remote access.
 The project was also supposed to record attendance with the name of the attendee, the tag ID, the date and time, which it successfully did. It can store over a 100+ logs of attendance to the cloud.
 
 ...
-**Hardware Used**
+# Hardware Used
 Arduino UNO (Microcontroller)
 RFID Reader (MFRC522)
 Jumper Wires
@@ -18,7 +18,7 @@ Breadboard
 LED (2)
 ....
 
-**Software Used**
+# Software Used
 Arduino IDE
 Visual Studio Code
 Excel Sheet
@@ -27,7 +27,7 @@ Google Sheets
 ....
 
 
-**Issues I ran into during this Project** 
+# Issues I ran into during this Project
 
 **Soldering Issue:**
 Cold solder joints caused enormous intigration issues with the RFID, it was also difficult to identify.
